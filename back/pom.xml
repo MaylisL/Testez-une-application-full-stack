@@ -81,6 +81,12 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.1.Final</version>
 		</dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -98,10 +104,6 @@
                 </configuration>
             </plugin>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.5</version>
@@ -118,6 +120,14 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+                        <configuration>
+                            <excludes>
+                                <!-- Ignore DTOs, mappers, configs and models -->
+                                <exclude>**/dto/**</exclude>
+                                <exclude>**/*Dto.class</exclude>
+                                <exclude>**/payload/**</exclude>
+                            </excludes>
+                        </configuration>
 					</execution>
 
 					<execution>
@@ -140,7 +150,6 @@
 							</rules>
 						</configuration>
 					</execution>
-
 				</executions>
 			</plugin>
 		</plugins>
