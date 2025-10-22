@@ -20,6 +20,9 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack/coverage.webpack.js"
+            },
             "outputPath": "dist/yoga",
             "index": "src/index.html",
             "main": "src/main.ts",

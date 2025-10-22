@@ -1,27 +1,29 @@
-describe('Login spec', () => {
-  it('Login successfull', () => {
-    cy.visit('/login')
+describe('Login Page', () => {
 
+  beforeEach(() => {
+    cy.visit('/login');
+  });
+
+  it('should login successfully as a user and redirect to /sessions', () => {
+    cy.fixture('user').then((user) => {
     cy.intercept('POST', '/api/auth/login', {
-      body: {
-        id: 1,
-        username: 'userName',
-        firstName: 'firstName',
-        lastName: 'lastName',
-        admin: true
-      },
-    })
+      statusCode: 200,
+      body: user,
+    }).as('loginUser');
 
-    cy.intercept(
-      {
-        method: 'GET',
-        url: '/api/session',
-      },
-      []).as('session')
+     cy.intercept(
+          {
+            method: 'GET',
+            url: '/api/session',
+          },
+          []).as('session')
 
-    cy.get('input[formControlName=email]').type("yoga@studio.com")
-    cy.get('input[formControlName=password]').type(`${"test!1234"}{enter}{enter}`)
+    cy.get('input[formControlName=email]').type(user.email);
+    cy.get('input[formControlName=password]').type('password123');
 
-    cy.url().should('include', '/sessions')
-  })
+    cy.get('button[type="submit"]').click();
+    cy.wait('@loginUser');
+    cy.url().should('include', '/sessions');
+    });
+  });
 });

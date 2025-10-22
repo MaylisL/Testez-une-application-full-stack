@@ -1,0 +1,10 @@
+{
+  "id": 2,
+  "username": "admin1",
+  "firstName": "adminFirst",
+  "lastName": "adminLast",
+  "email": "admin@demo.com",
+  "admin": true,
+  "createdAt": "2024-07-10T00:00:00Z",
+  "updatedAt": "2025-03-05T00:00:00Z"
+}
